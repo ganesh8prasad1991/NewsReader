@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct NewsArticleListItemView: View {
-    let article: Article
+    @State private var viewModel: NewsArticleListItemViewModel
     @State private var image: Image? = nil
+    
+    init(article: Article) {
+        self.viewModel = NewsArticleListItemViewModel(article: article)
+    }
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -26,7 +30,7 @@ struct NewsArticleListItemView: View {
                     RoundedRectangle(cornerRadius: 12)
                 )
             } else {
-                if let urlToImage = article.urlToImage {
+                if let urlToImage = viewModel.article.urlToImage {
                     NewsCacheAsyncImage(url: urlToImage)
                     .scaledToFill()
                     .frame(width: 90, height: 90)
@@ -37,14 +41,15 @@ struct NewsArticleListItemView: View {
             } //: ASYNCIMAGE
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(article.title ?? "")
+                Text(viewModel.article.title ?? "")
                     .font(.title2)
                     .fontWeight(.heavy)
                     .lineLimit(1)
                     .foregroundColor(.black)
                 
-                Text(article.description ?? "")
+                Text(viewModel.article.description ?? "")
                     .font(.footnote)
+                    .foregroundColor(.black)
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
                     .padding(.trailing, 8)
@@ -54,11 +59,13 @@ struct NewsArticleListItemView: View {
                     Spacer()
                     
                     Button {
-                        print("HI there")
+                        Task {
+                            await viewModel.createBookmark()
+                        }
                     } label: {
-                        Image(systemName: "bookmark")
+                        Image(systemName: viewModel.isBookmark ? "bookmark.fill" : "bookmark")
                             .padding()
-                            .foregroundColor(.white)
+                            .foregroundColor(.accentColor)
                             .background(.gray)
                             .cornerRadius(.infinity)
                             .overlay( /// apply a rounded border
@@ -71,7 +78,7 @@ struct NewsArticleListItemView: View {
             } //: VSTACK
         } //: HSTACK
         .onAppear {
-            if let urlToImage = article.urlToImage,
+            if let urlToImage = viewModel.article.urlToImage,
                let cachedImage = ImageCache[urlToImage] {
                 self.image = cachedImage
             }

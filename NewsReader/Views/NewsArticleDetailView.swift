@@ -43,6 +43,14 @@ struct NewsArticleDetailView: View {
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.black)
                     .padding(.horizontal)
+                
+                if article.content?.isEmpty ?? true {
+                    Text(article.description ?? "")
+                        .font(.headline)
+                        .multilineTextAlignment(.leading)
+                        .foregroundColor(.black)
+                        .padding(.horizontal)
+                }
             } //: VSTACK
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
