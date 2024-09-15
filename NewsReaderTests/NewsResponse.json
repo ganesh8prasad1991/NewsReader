@@ -1,0 +1,19 @@
+{
+    "status": "ok",
+    "totalResults": 46,
+    "articles": [
+        {
+            "source": {
+                "id": "reuters",
+                "name": "Reuters"
+            },
+            "author": "Krystal Hu, Kenrick Cai",
+            "title": "Exclusive: OpenAI's $150 billion valuation hinges on upending corporate structure, sources say - Reuters",
+            "description": "OpenAI's new financing round is expected to come in the form of convertible notes, according to sources with direct knowledge of the matter, who said its $150 billion valuation will be contingent on whether the ChatGPT-maker can upend its corporate structure …",
+            "url": "https://www.reuters.com/technology/artificial-intelligence/openais-stunning-150-billion-valuation-hinges-upending-corporate-structure-2024-09-14/",
+            "urlToImage": "https://www.reuters.com/resizer/v2/AY4XNWRT7NMPDCG2RUBHZWR2EM.jpg?auth=cdca06348a0e43100472b6d856eccf4de559a51ddb148fd353c34111a89209d6&height=1005&width=1920&quality=80&smart=true",
+            "publishedAt": "2024-09-14T01:23:57Z",
+            "content": "SEATTLE (AP) Blue-collar workers from Boeing walked picket lines in the Pacific Northwest instead of building airplanes on Friday after they overwhelmingly rejected a proposed contract that would hav… [+7725 chars]"
+        }
+    ]
+}
