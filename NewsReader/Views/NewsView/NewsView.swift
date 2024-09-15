@@ -19,16 +19,26 @@ struct NewsView: View {
                             CircularProgressViewStyle(tint: .accentColor)
                         )
                 } else {
-                    List {
-                        ForEach(viewModel.articles) { article in
-                            NavigationLink(
-                                destination: NewsArticleDetailView(article: article)
-                            ) {
-                                
-                                NewsArticleListItemView(article: article)
-                            } //: NAVIGATIONLINK
-                        } //: LOOP
+                    ScrollView(.vertical) {
+                        VStack {
+                            horizontalScrollingCategory
+                            
+                            // Vertical news view
+                            ForEach(viewModel.articles) { article in
+                                NavigationLink(
+                                    destination: NewsArticleDetailView(article: article)
+                                ) {
+                                    VStack {
+                                        NewsArticleListItemView(article: article)
+                                            .padding()
+                                        
+                                        Divider()
+                                    }
+                                } //: NAVIGATIONLINK
+                            } //: LOOP
+                        }
                     }
+                    .padding()
                 }
             } //: GROUP
             .navigationTitle("News")
@@ -56,6 +66,33 @@ struct NewsView: View {
                 Alert(title: Text(viewModel.message))
             }
         }
+    }
+    
+    var horizontalScrollingCategory: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 20) {
+                ForEach(viewModel.categories, id: \.id) { categoryModel in
+                    Button {
+                        
+                    } label: {
+                        Text(categoryModel.category.rawValue)
+                            .padding()
+                            .foregroundColor(categoryModel.isSelected ? .white : .black)
+                            .background(categoryModel.isSelected ? .gray : .white)
+                            .cornerRadius(.infinity)
+                            .lineLimit(1)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: .infinity)
+                                    .stroke(.black, lineWidth: 1)
+                            )
+                    }
+                }
+            }
+        }
+    }
+    
+    private func navigateToDetailScreen(with article: Article) {
+        
     }
 }
 

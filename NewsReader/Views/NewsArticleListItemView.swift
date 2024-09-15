@@ -40,7 +40,8 @@ struct NewsArticleListItemView: View {
                 Text(article.title ?? "")
                     .font(.title2)
                     .fontWeight(.heavy)
-                    .foregroundColor(.accentColor)
+                    .lineLimit(1)
+                    .foregroundColor(.black)
                 
                 Text(article.description ?? "")
                     .font(.footnote)
@@ -48,13 +49,22 @@ struct NewsArticleListItemView: View {
                     .lineLimit(2)
                     .padding(.trailing, 8)
                 
+                // Bookmark
                 HStack {
                     Spacer()
                     
                     Button {
-                        
+                        print("HI there")
                     } label: {
                         Image(systemName: "bookmark")
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(.gray)
+                            .cornerRadius(.infinity)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: .infinity)
+                                    .stroke(.black, lineWidth: 1)
+                            )
                     }
                     
                 }

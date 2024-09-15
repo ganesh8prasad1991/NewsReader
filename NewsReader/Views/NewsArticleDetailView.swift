@@ -12,6 +12,12 @@ struct NewsArticleDetailView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .center, spacing: 20) {
+                // TITLE
+                Text(article.title ?? "")
+                    .font(.title2)
+                    .fontWeight(.heavy)
+                    .foregroundColor(.black)
+                
                 // IMAGE
                 if let urlToImage = article.urlToImage {
                     NewsCacheAsyncImage(url: urlToImage)
@@ -35,7 +41,7 @@ struct NewsArticleDetailView: View {
                 Text(article.content ?? "")
                     .font(.headline)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.black)
                     .padding(.horizontal)
             } //: VSTACK
             .navigationTitle("Details")

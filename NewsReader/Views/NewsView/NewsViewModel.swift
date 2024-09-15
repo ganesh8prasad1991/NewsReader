@@ -11,6 +11,7 @@ import Foundation
 final class NewsViewModel {
     // MARK: PROPERTIES
     var articles = [Article]()
+    var categories = [CategoryModel]()
     var isLoaded: Bool = false
     var showAlert: Bool = false
     var message: String = ""
@@ -20,6 +21,9 @@ final class NewsViewModel {
     // MARK: INIT
     init(apiService: APIServiceProtocol = APIService()) {
         self.apiService = apiService
+        self.categories = Category.allCases.map {
+            CategoryModel(category: $0, isSelected: false)
+        }
     }
     
     func getArticles() async throws {
