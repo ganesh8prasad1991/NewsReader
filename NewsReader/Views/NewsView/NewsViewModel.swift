@@ -57,4 +57,30 @@ final class NewsViewModel {
         self.showAlert = showAlert
         self.message = message
     }
+    
+    func didSelectCategory(categoryModel: CategoryModel) async throws {
+        removeAllSelectedCategory()
+        if let selectedIndex = categories.firstIndex(where: { $0.category.rawValue == categoryModel.category.rawValue }) {
+            categories[selectedIndex].isSelected = !categories[selectedIndex].isSelected
+        }
+        
+        // call api
+        articles.removeAll()
+        do {
+            articles = try await apiService.fetchNews(category: categoryModel.category)
+        } catch {
+            articles = []
+            updateData(
+                isLoaded: true,
+                showAlert: true,
+                message: error.localizedDescription
+            )
+        }
+    }
+    
+    private func removeAllSelectedCategory() {
+        categories.enumerated().forEach {
+            categories[$0.offset].isSelected = false
+        }
+    }
 }

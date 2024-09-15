@@ -10,5 +10,5 @@ import Foundation
 struct CategoryModel: Identifiable {
     var id = UUID().uuidString
     let category: Category
-    let isSelected: Bool
+    var isSelected: Bool
 }

@@ -47,7 +47,7 @@ struct NewsView: View {
                 if viewModel.articles.isEmpty {
                     ContentUnavailableView {
                         Label(
-                            "Please check your internet connection and try again!",
+                            "Please select different category!",
                             systemImage: "doc.richtext.fill"
                         )
                     }
@@ -73,7 +73,13 @@ struct NewsView: View {
             LazyHStack(spacing: 20) {
                 ForEach(viewModel.categories, id: \.id) { categoryModel in
                     Button {
-                        
+                        Task {
+                            do {
+                                try await viewModel.didSelectCategory(categoryModel: categoryModel)
+                            } catch {
+                                debugPrint(error.localizedDescription)
+                            }
+                        }
                     } label: {
                         Text(categoryModel.category.rawValue)
                             .padding()
@@ -89,10 +95,6 @@ struct NewsView: View {
                 }
             }
         }
-    }
-    
-    private func navigateToDetailScreen(with article: Article) {
-        
     }
 }
 
